@@ -1,0 +1,46 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+    <title>防城港疫情地图【实时更新】</title>
+    <link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css"/>
+    <link rel="stylesheet" href="css/sty.css"/>
+</head>
+<body>
+<div id="container" class="map" tabindex="0"></div>
+<script src="js/china.js"></script>
+<script type="text/javascript"
+        src="https://webapi.amap.com/maps?v=1.4.15&key=您申请的key值&plugin=AMap.MarkerClusterer"></script>
+<script type="text/javascript">
+    var cluster, markers = [];
+
+    var map = new AMap.Map("container", {
+        resizeEnable: true,
+        center: [108.35467, 21.686732],
+        zoom: 11
+    });
+
+    for (var i = 0; i < points.length; i += 1) {
+        markers.push(new AMap.Marker({
+            position: points[i]['lnglat'],
+            title: points[i]['add'],
+            content: '<div style="background-color: hsla(180, 100%, 50%, 0.7); height: 24px; width: 24px; border: 1px solid hsl(180, 100%, 40%); border-radius: 12px; box-shadow: hsl(180, 100%, 50%) 0px 0px 1px;"></div>',
+            offset: new AMap.Pixel(-15, -15)
+        }))
+    }
+
+    addCluster();
+
+    function addCluster() {
+        if (cluster) {
+            cluster.setMap(null);
+        }
+
+        cluster = new AMap.MarkerClusterer(map, markers, {gridSize: 80,minClusterSize:1});
+        
+    }
+</script>
+</body>
+</html>
